@@ -13,3 +13,10 @@ To start the project simply use the command: 'make run'
 - [Docker](https://www.docker.com/)
 - [Make](https://makefiletutorial.com/)
 - [Air](https://github.com/air-verse/air)
+
+## TODO:
+- Add MySQL to docker
+- Add database infrastrcture and migration scripts
+- Proper routing main and routing setup
+- Base view layout components
+- Setup workflows
