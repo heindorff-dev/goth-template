@@ -34,3 +34,6 @@ main
 
 # SQL session file
 *.session.sql
+
+# Build assets
+node_modules/

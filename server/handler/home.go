@@ -1,7 +1,7 @@
 package handler
 
 import (
-	"goth-template/view/home"
+	home "goth-template/view/pages"
 
 	"github.com/labstack/echo/v4"
 )

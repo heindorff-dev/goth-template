@@ -15,6 +15,8 @@ To start the project simply use the command: 'make run'
 - [Air](https://github.com/air-verse/air)
 
 ## TODO:
+- Add Tailwind
+- Add HTMX
 - Add MySQL to docker
 - Add database infrastrcture and migration scripts
 - Proper routing main and routing setup
