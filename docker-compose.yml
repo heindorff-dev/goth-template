@@ -1,6 +1,5 @@
 services:
   go-backend:
-    privileged: true
     build: .
     volumes:
       - ./:/app
