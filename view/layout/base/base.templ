@@ -1,4 +1,6 @@
-package layout
+package base
+
+import "goth-template/view/layout/navigation"
 
 templ Base() {
     <!DOCTYPE html>
@@ -8,12 +10,17 @@ templ Base() {
             <meta charset="UTF-8"/>
             <meta name="viewport" content="width=edvice-width, initial-scale=1.0"/>
             <link rel="stylesheet" type="text/css" href="/public/styles.css"/>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/htmx/2.0.4/htmx.min.js"/>
         </head>
-        <body>
-            <div class="text-3xl font-bold underline">
-                nav
+        <body class="flex flex-col min-h-screen">
+            @navigation.Header()
+
+            <div class="flex-grow">
+                { children... }
             </div>
-            { children... }
+            
+
+            @navigation.Footer()
         </body>
     </html>
 }
