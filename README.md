@@ -11,6 +11,6 @@ See Makefile for commands.
 - Tools: [Docker](https://www.docker.com/), [Make](https://makefiletutorial.com/), [Air](https://github.com/air-verse/air)
 
 ## TODO:
-- Add MySQL to docker
+- Pass database conn
 - Add database infrastrcture and migration scripts
 - Setup workflows
