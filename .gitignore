@@ -37,3 +37,6 @@ main
 
 # Build assets
 node_modules/
+
+# Tailwind generated .css
+styles.css
