@@ -2,11 +2,7 @@
 
 This project serves as a template for go projects using the GoTH (Go, Templ, HTMX) stack.
 
-
-Commands:
-- Build css: 'make css-nowatch'
-- Run project: 'make'
-- Generate database models: (cd database ; sqlc generate)
+See Makefile for commands.
 
 ## The stack in details:
 - Frontend: [Templ](https://templ.guide/), [HTMX](https://htmx.org/), [TailwindCSS](https://tailwindcss.com/), [DaisyUI](https://daisyui.com/)
