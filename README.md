@@ -4,8 +4,8 @@ This project serves as a template for go projects using the GoTH (Go, Templ, HTM
 
 
 Commands:
-- Build css: 'make css'
-- Run project: 'make run'
+- Build css: 'make css-nowatch'
+- Run project: 'make'
 
 ## The stack in details:
 - Frontend: [Templ](https://templ.guide/), [HTMX](https://htmx.org/), [TailwindCSS](https://tailwindcss.com/), [DaisyUI](https://daisyui.com/)
