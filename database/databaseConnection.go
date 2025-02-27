@@ -5,6 +5,9 @@ import (
 	"errors"
 	"fmt"
 	"goth-template/server/helper"
+
+	_ "github.com/go-sql-driver/mysql"
+	"github.com/joho/godotenv"
 )
 
 type DatabaseConnection struct {
@@ -14,6 +17,11 @@ type DatabaseConnection struct {
 }
 
 func NewDatabaseConnection() (*DatabaseConnection, error) {
+	err := godotenv.Load()
+	if err != nil {
+		panic(err.Error())
+	}
+
 	username, err := helper.GetEnv("DB_USERNAME")
 	if err != nil {
 		return nil, err
@@ -40,7 +48,7 @@ func (d *DatabaseConnection) Init() error {
 		return err
 	}
 	d.databaseQueries = New(db)
-	fmt.Println("Successfully connected to db: ", d.DatabaseName)
+	fmt.Println("Successfully connected to db:", d.DatabaseName)
 	return nil
 }
 
