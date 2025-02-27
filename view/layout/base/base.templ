@@ -14,12 +14,11 @@ templ Base() {
         </head>
         <body class="flex flex-col min-h-screen">
             @navigation.Header()
-
             <div class="flex-grow">
-                { children... }
+                <div class="p-2">
+                    { children... }
+                </div>
             </div>
-            
-
             @navigation.Footer()
         </body>
     </html>
