@@ -11,6 +11,5 @@ See Makefile for commands.
 - Tools: [Docker](https://www.docker.com/), [Make](https://makefiletutorial.com/), [Air](https://github.com/air-verse/air)
 
 ## TODO:
-- Pass database conn
-- Add database infrastrcture and migration scripts
+- DB connection passing to handlers ??
 - Setup workflows

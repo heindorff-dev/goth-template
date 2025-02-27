@@ -2,7 +2,7 @@
 SELECT * FROM api_error_log WHERE error_id = ? LIMIT 1;
 
 -- name: ListApiErrorLogs :many
-SELECT * FROM api_error_log ORDER BY id;
+SELECT * FROM api_error_log ORDER BY error_id;
 
 -- name: CreateApiErrorLog :execresult
 INSERT INTO api_error_log (

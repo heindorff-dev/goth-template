@@ -1,0 +1,4 @@
+CREATE TABLE user (
+    user_id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    username TEXT NOT NULL
+)

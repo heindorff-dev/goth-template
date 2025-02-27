@@ -7,15 +7,12 @@ import (
 )
 
 func main() {
-	dbConn, err := database.NewDatabaseConnection()
+	db, err := database.ConnectDatabase()
 	if err != nil {
 		panic(err)
 	}
 
-	err = dbConn.Init()
-	if err != nil {
-		panic(err)
-	}
+	db.Begin() //idk?
 
 	server := server.NewServer()
 	log.Fatal(server.Start())

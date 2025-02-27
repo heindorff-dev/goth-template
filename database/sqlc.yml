@@ -2,9 +2,11 @@ version: "2"
 sql:
   - engine: "mysql"
     queries:
-     - "query/query.sql"
+     - "query/api_error_log.sql"
+     - "query/user.sql"
     schema:
-     - "migration/schema.sql"
+     - "migration/api_error_log.sql"
+     - "migration/user.sql"
     gen:
       go:
         package: "database"

@@ -13,3 +13,8 @@ type ApiErrorLog struct {
 	Timestamp    time.Time
 	ErrorMessage string
 }
+
+type User struct {
+	UserID   int64
+	Username string
+}
