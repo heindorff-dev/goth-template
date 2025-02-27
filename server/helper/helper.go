@@ -5,7 +5,7 @@ import (
 	"os"
 )
 
-func MustGetEnv(key string) (string, error) {
+func GetEnv(key string) (string, error) {
 	envValue := os.Getenv(key)
 	if envValue == "" {
 		errMessage := "The environment variable '" + key + "' doesn't exist or is not set."

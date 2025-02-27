@@ -32,7 +32,7 @@ func (s *Server) Start() error {
 		panic(err.Error())
 	}
 
-	serverPort, err := helper.MustGetEnv("SERVER_PORT")
+	serverPort, err := helper.GetEnv("SERVER_PORT")
 	if err != nil {
 		panic(err.Error())
 	}

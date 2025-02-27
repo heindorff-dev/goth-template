@@ -3,7 +3,7 @@ compose:
 	@docker compose -f docker-compose.yml up --build
 
 # Run project with Air.
-run:
+build:
 	@air
 
 # Generate *_templ files for frontend.
