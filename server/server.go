@@ -2,10 +2,8 @@ package server
 
 import (
 	"fmt"
-	"goth-template/server/handlers"
 	"goth-template/server/helper"
-	"goth-template/view"
-	"net/http"
+	"goth-template/server/routes"
 
 	"github.com/joho/godotenv"
 	"github.com/labstack/echo/v4"
@@ -32,12 +30,7 @@ func (s *Server) Start() error {
 
 	e := echo.New()
 
-	// Handle static assets
-	assetHandler := http.FileServer(view.GetPublicAssetsFileSystem())
-	e.GET("/public/*", echo.WrapHandler(http.StripPrefix("/public/", assetHandler)))
-
-	homeHandler := handlers.HomeHandler{}
-	e.GET("/", homeHandler.HandleShowHome)
+	routes.InitRoutes(e)
 
 	fmt.Println("Starting server. Listening on port: " + serverPort)
 
