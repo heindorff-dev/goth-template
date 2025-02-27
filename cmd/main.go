@@ -11,7 +11,11 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	log.Fatal(dbConn.Init())
+
+	err = dbConn.Init()
+	if err != nil {
+		panic(err)
+	}
 
 	server := server.NewServer()
 	log.Fatal(server.Start())
