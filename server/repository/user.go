@@ -1,11 +1,23 @@
 package repository
 
-import "database/sql"
+import (
+	"context"
+	"goth-template/database"
+)
 
 type UserRepository struct {
-	databaseConnection *sql.DB
+	client *database.DatabaseClient
 }
 
-func CreateUserRepository(db *sql.DB) *UserRepository {
-	return &UserRepository{databaseConnection: db}
+func NewUserRepository(c *database.DatabaseClient) *UserRepository {
+	return &UserRepository{client: c}
+}
+
+func (r UserRepository) Test(ctx context.Context) ([]database.User, error) {
+	users, err := r.client.Query(ctx).ListUsers(ctx)
+	if err != nil {
+		return nil, err
+	}
+
+	return users, nil
 }
