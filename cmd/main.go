@@ -16,6 +16,11 @@ func main() {
 		panic("Failed to connect to database")
 	}
 
+	pingRes := databaseConnectionManager.Ping()
+	if pingRes != nil {
+		panic("Failed to connect to database")
+	}
+
 	serverConfiguration := mustGetServerConfiguration()
 	server := server.NewServer(serverConfiguration, databaseConnectionManager)
 
@@ -33,7 +38,8 @@ func mustGetDatabaseConfiguration() *database.ConnectionConfigurations {
 	dbName := helper.MustGetEnv("DB_DATABASE")
 	host := helper.MustGetEnv("DB_CONTAINER")
 	port := helper.MustGetEnv("DB_REMOTE_PORT")
-	config := database.NewConnectionConfiguration(dbName, host, port)
+	protocol := helper.MustGetEnv("DB_PROTOCOL")
+	config := database.NewConnectionConfiguration(dbName, host, port, protocol)
 	return config
 }
 

@@ -14,10 +14,6 @@ type ConnectionManager struct {
 	database         *sql.DB
 }
 
-type DatabaseClient struct {
-	connectionManager *ConnectionManager
-}
-
 type ConnectionCredentials struct {
 	username string
 	password string
@@ -27,6 +23,11 @@ type ConnectionConfigurations struct {
 	databaseName string
 	port         string
 	host         string
+	protocol     string
+}
+
+type DatabaseClient struct {
+	connectionManager *ConnectionManager
 }
 
 func NewConnectionCredentials(username string, password string) *ConnectionCredentials {
@@ -37,11 +38,12 @@ func NewConnectionCredentials(username string, password string) *ConnectionCrede
 	return creds
 }
 
-func NewConnectionConfiguration(databaseName string, host string, port string) *ConnectionConfigurations {
+func NewConnectionConfiguration(databaseName string, host string, port string, protocol string) *ConnectionConfigurations {
 	config := &ConnectionConfigurations{
 		databaseName: databaseName,
 		host:         host,
 		port:         port,
+		protocol:     protocol,
 	}
 	return config
 }
@@ -53,11 +55,12 @@ func NewConnectionManager(config ConnectionConfigurations, cred ConnectionCreden
 	}
 
 	// Create connectionstring. Better way??
-	connectionManager.connectionString = connectionManager.credentials.username + ":" + connectionManager.credentials.password + "@tcp(" +
+	connectionManager.connectionString = connectionManager.credentials.username + ":" + connectionManager.credentials.password + "@" + connectionManager.configuration.protocol + "(" +
 		connectionManager.configuration.host + ":" + connectionManager.configuration.port + ")/" + connectionManager.configuration.databaseName
 
 	db, err := sql.Open("mysql", connectionManager.connectionString)
 	if err != nil {
+
 		return nil, err
 	}
 
@@ -86,16 +89,6 @@ func (c *DatabaseClient) Query(ctx context.Context) *Queries {
 func (c *ConnectionManager) Database() *sql.DB {
 	return c.database
 }
-
-/* func (c *ConnectionManager) Query(ctx context.Context) *Queries {
-	conn, err := c.database.Conn(ctx)
-	if err != nil {
-		return nil
-	}
-	defer conn.Close()
-	query := New(c.database)
-	return query
-} */
 
 func (c *ConnectionManager) Ping() error {
 	err := c.database.Ping()
