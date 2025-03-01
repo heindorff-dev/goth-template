@@ -6,6 +6,7 @@ import (
 	"goth-template/server/handlers"
 	"goth-template/server/repository"
 	"goth-template/view"
+	"log/slog"
 	"net/http"
 	"os"
 
@@ -15,6 +16,7 @@ import (
 type Server struct {
 	connectionManager *database.ConnectionManager
 	configurations    Configurations
+	logger            *slog.Logger
 }
 
 type Configurations struct {
@@ -28,12 +30,32 @@ func NewConfiguration(port string) *Configurations {
 	return config
 }
 
-func NewServer(config *Configurations, connMngr *database.ConnectionManager) *Server {
+func New(config *Configurations, connMngr *database.ConnectionManager, logger *slog.Logger) *Server {
 	server := &Server{
 		configurations:    *config,
 		connectionManager: connMngr,
+		logger:            logger,
 	}
 	return server
+}
+
+func (s *Server) Start() error {
+	e := echo.New()
+
+	// Create repositories
+	userRepository := repository.NewUserRepository(s.connectionManager.NewClient())
+
+	// Public directory
+	assetHandler := http.FileServer(view.GetPublicAssetsFileSystem())
+	e.GET("/public/*", echo.WrapHandler(http.StripPrefix("/public/", assetHandler)))
+
+	// Set routes
+	homeHandler := handlers.NewHomeHandler(*userRepository)
+	e.GET("/", homeHandler.HandleShowHome)
+
+	// Start server
+	fmt.Println(getBanner())
+	return e.Start(s.configurations.port)
 }
 
 func getBanner() string {
@@ -42,20 +64,4 @@ func getBanner() string {
 		panic(err)
 	}
 	return string(b)
-}
-
-func (s *Server) Start() error {
-
-	e := echo.New()
-	userRepository := repository.NewUserRepository(s.connectionManager.NewClient())
-
-	assetHandler := http.FileServer(view.GetPublicAssetsFileSystem())
-	e.GET("/public/*", echo.WrapHandler(http.StripPrefix("/public/", assetHandler)))
-
-	homeHandler := handlers.NewHomeHandler(*userRepository)
-	e.GET("/", homeHandler.HandleShowHome)
-
-	fmt.Println(getBanner())
-
-	return e.Start(s.configurations.port)
 }

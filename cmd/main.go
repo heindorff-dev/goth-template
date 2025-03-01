@@ -5,12 +5,16 @@ import (
 	"goth-template/server"
 	"goth-template/server/helper"
 	"log"
+	"log/slog"
+	"os"
 )
 
 func main() {
+	logger := slog.New(slog.NewTextHandler(os.Stderr, nil))
+
 	databaseConnectionCredentials := mustGetDatabaseCredentials()
 	databaseConnectionConfiguration := mustGetDatabaseConfiguration()
-	databaseConnectionManager, err := database.NewConnectionManager(*databaseConnectionConfiguration, *databaseConnectionCredentials)
+	databaseConnectionManager, err := database.NewConnectionManager(*databaseConnectionConfiguration, *databaseConnectionCredentials, logger)
 
 	if err != nil {
 		panic("Failed to connect to database")
@@ -22,7 +26,7 @@ func main() {
 	}
 
 	serverConfiguration := mustGetServerConfiguration()
-	server := server.NewServer(serverConfiguration, databaseConnectionManager)
+	server := server.New(serverConfiguration, databaseConnectionManager, logger)
 
 	log.Fatal(server.Start())
 }
