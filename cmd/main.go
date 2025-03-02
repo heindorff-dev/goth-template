@@ -17,12 +17,14 @@ func main() {
 	databaseConnectionManager, err := database.NewConnectionManager(*databaseConnectionConfiguration, *databaseConnectionCredentials, logger)
 
 	if err != nil {
-		panic("Failed to connect to database")
+		logger.Error(err.Error())
+		panic(err)
 	}
 
 	pingRes := databaseConnectionManager.Ping()
 	if pingRes != nil {
-		panic("Failed to connect to database")
+		logger.Error(pingRes.Error())
+		panic(pingRes)
 	}
 
 	serverConfiguration := mustGetServerConfiguration()

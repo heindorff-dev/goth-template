@@ -45,7 +45,6 @@ func NewConnectionManager(config ConnectionConfigurations, cred ConnectionCreden
 
 	db, err := sql.Open("mysql", connectionManager.connectionString)
 	if err != nil {
-
 		return nil, err
 	}
 
