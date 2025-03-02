@@ -3,7 +3,7 @@ package server
 import (
 	"fmt"
 	"goth-template/database"
-	"goth-template/server/handlers"
+	"goth-template/server/handler"
 	"goth-template/server/repository"
 	"goth-template/view"
 	"log/slog"
@@ -50,7 +50,7 @@ func (s *Server) Start() error {
 	e.GET("/public/*", echo.WrapHandler(http.StripPrefix("/public/", assetHandler)))
 
 	// Set routes
-	homeHandler := handlers.NewHomeHandler(*userRepository)
+	homeHandler := handler.NewHomeHandler(*userRepository)
 	e.GET("/", homeHandler.HandleShowHome)
 
 	// Start server

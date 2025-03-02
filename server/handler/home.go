@@ -1,8 +1,8 @@
-package handlers
+package handler
 
 import (
 	"goth-template/server/repository"
-	home "goth-template/view/pages"
+	home "goth-template/view/page"
 
 	"github.com/labstack/echo/v4"
 )
