@@ -5,6 +5,7 @@ import (
 	"goth-template/database"
 	"goth-template/server/handler"
 	"goth-template/server/repository"
+	"goth-template/server/service"
 	"goth-template/view"
 	"log/slog"
 	"net/http"
@@ -43,14 +44,17 @@ func (s *Server) Start() error {
 	e := echo.New()
 
 	// Create repositories
-	userRepository := repository.NewUserRepository(s.connectionManager.NewClient())
+	userRepository := repository.NewUserRepository(s.connectionManager.NewClient(), s.logger)
+
+	// Create services
+	userService := service.CreateUserService(userRepository, s.logger)
 
 	// Public directory
 	assetHandler := http.FileServer(view.GetPublicAssetsFileSystem())
 	e.GET("/public/*", echo.WrapHandler(http.StripPrefix("/public/", assetHandler)))
 
 	// Set routes
-	homeHandler := handler.NewHomeHandler(*userRepository)
+	homeHandler := handler.NewHomeHandler(userService, s.logger)
 	e.GET("/", homeHandler.HandleShowHome)
 
 	// Start server

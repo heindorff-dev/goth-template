@@ -1,11 +1,18 @@
 package handler
 
-import "goth-template/server/repository"
+import (
+	"goth-template/server/service"
+	"log/slog"
+)
 
 type UserHandler struct {
-	userRepository *repository.UserRepository
+	userService *service.UserService
+	logger      *slog.Logger
 }
 
-func CreateUserHandler(r *repository.UserRepository) *UserHandler {
-	return &UserHandler{userRepository: r}
+func NewUserHandler(userService *service.UserService, logger slog.Logger) *UserHandler {
+	return &UserHandler{
+		userService: userService,
+		logger:      &logger,
+	}
 }
