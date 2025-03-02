@@ -13,7 +13,7 @@ services:
       - mysql_volume_gt:/var/lib/mysql
 
   go-backend:
-    container_name: goth-go-api
+    container_name: ${API_CONTAINER}
     build: .
     volumes:
       - ./:/app

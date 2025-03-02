@@ -9,19 +9,19 @@ import (
 )
 
 type ConnectionManager struct {
-	configuration    ConnectionConfigurations
-	credentials      ConnectionCredentials
+	configuration    ConnectionConfiguration
+	credentials      ConnectionCredential
 	connectionString string
 	database         *sql.DB
 	logger           *slog.Logger
 }
 
-type ConnectionCredentials struct {
+type ConnectionCredential struct {
 	username string
 	password string
 }
 
-type ConnectionConfigurations struct {
+type ConnectionConfiguration struct {
 	databaseName string
 	port         string
 	host         string
@@ -32,7 +32,7 @@ type DatabaseClient struct {
 	connectionManager *ConnectionManager
 }
 
-func NewConnectionManager(config ConnectionConfigurations, cred ConnectionCredentials, logger *slog.Logger) (*ConnectionManager, error) {
+func NewConnectionManager(config ConnectionConfiguration, cred ConnectionCredential, logger *slog.Logger) (*ConnectionManager, error) {
 	connectionManager := &ConnectionManager{
 		configuration: config,
 		credentials:   cred,
@@ -52,16 +52,16 @@ func NewConnectionManager(config ConnectionConfigurations, cred ConnectionCreden
 	return connectionManager, nil
 }
 
-func NewConnectionCredentials(username string, password string) *ConnectionCredentials {
-	creds := &ConnectionCredentials{
+func NewConnectionCredentials(username string, password string) *ConnectionCredential {
+	creds := &ConnectionCredential{
 		username: username,
 		password: password,
 	}
 	return creds
 }
 
-func NewConnectionConfiguration(databaseName string, host string, port string, protocol string) *ConnectionConfigurations {
-	config := &ConnectionConfigurations{
+func NewConnectionConfiguration(databaseName string, host string, port string, protocol string) *ConnectionConfiguration {
+	config := &ConnectionConfiguration{
 		databaseName: databaseName,
 		host:         host,
 		port:         port,
