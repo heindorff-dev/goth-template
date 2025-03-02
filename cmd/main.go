@@ -2,8 +2,8 @@ package main
 
 import (
 	"goth-template/database"
-	"goth-template/server"
-	"goth-template/server/helper"
+	"goth-template/internal/helper"
+	"goth-template/internal/server"
 	"log"
 	"log/slog"
 	"os"
